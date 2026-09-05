@@ -1,0 +1,14 @@
+services:
+  dc-monitor:
+    build: .
+    container_name: dc-ticket-monitor
+    env_file: .env
+    restart: unless-stopped
+    volumes:
+      # 컨테이너를 재시작해도 마지막 글 번호를 유지한다.
+      - ./state:/app/state
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
